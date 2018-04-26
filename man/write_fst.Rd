@@ -7,10 +7,10 @@
 \alias{read.fst}
 \title{Read and write fst files.}
 \usage{
-write_fst(x, path, compress = 50, uniform_encoding = TRUE)
+write_fst(x, ...)
 
 read_fst(path, columns = NULL, from = 1, to = NULL,
-  as.data.table = FALSE, old_format = FALSE)
+  as.data.table = FALSE, as.sparseMatrix = FALSE, old_format = FALSE)
 
 write.fst(x, path, compress = 50, uniform_encoding = TRUE)
 
@@ -22,16 +22,6 @@ read.fst(path, columns = NULL, from = 1, to = NULL,
 
 \item{path}{path to fst file}
 
-\item{compress}{value in the range 0 to 100, indicating the amount of compression to use.
-Lower values mean larger file sizes.}
-
-\item{uniform_encoding}{If TRUE, all character vectors will be assumed to have elements with equal encoding.
-The encoding (latin1, UTF8 or native) of the first non-NA element will used as encoding for the whole column.
-This will be a correct assumption for most use cases.
-If \code{uniform.encoding} is set to FALSE, no such assumption will be made and all elements will be converted
-to the same encoding. The latter is a relatively expensive operation and will reduce write performance for
-character columns.}
-
 \item{columns}{Column names to read. The default is to read all all columns.}
 
 \item{from}{Read data starting from this row number.}
@@ -42,6 +32,16 @@ character columns.}
 dataset \code{x} before writing will be retained. This allows for storage of sorted datasets.}
 
 \item{old_format}{use TRUE to read fst files generated with a fst package version lower than v0.8.0}
+
+\item{compress}{value in the range 0 to 100, indicating the amount of compression to use.
+Lower values mean larger file sizes.}
+
+\item{uniform_encoding}{If TRUE, all character vectors will be assumed to have elements with equal encoding.
+The encoding (latin1, UTF8 or native) of the first non-NA element will used as encoding for the whole column.
+This will be a correct assumption for most use cases.
+If \code{uniform.encoding} is set to FALSE, no such assumption will be made and all elements will be converted
+to the same encoding. The latter is a relatively expensive operation and will reduce write performance for
+character columns.}
 }
 \value{
 \code{read_fst} returns a data frame with the selected columns and rows. \code{read_fst}
