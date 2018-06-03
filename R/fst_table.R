@@ -24,9 +24,9 @@
 #'
 #' Create a fst_table object that can be accessed like a regular data frame. This object
 #' is just a reference to the actual data and requires only a small amount of memory.
-#' When data is accessed, only the requested subset is read from file. This is possible
-#' because the fst file format allows full random access (in columns and rows) to the stored
-#' dataset.
+#' When data is accessed, only a subset is read from file, depending on the minimum and
+#' maximum requested row number. This is possible because the fst file format allows full
+#' random access (in columns and rows) to the stored dataset.
 #'
 #' @inheritParams metadata_fst
 #' @return An object of class \code{fst_table}
@@ -176,34 +176,6 @@ str.fst_table <- function(object, ...) {
   x[[j]]
 }
 
-
-require_bit64 <- function() {
-  # called in print when they see integer64 columns are present
-  if (!requireNamespace("bit64", quietly = TRUE))
-    warning(paste0("Some columns are type 'integer64' but package bit64 is not installed. ",
-      "Those columns will print as strange looking floating point data. ",
-      "There is no need to reload the data. Simply install.packages('bit64') to obtain ",
-      "the integer64 print method and print the data again."))
-}
-
-
-require_data_table <- function() {
-  # called in print when they see ITime columns are present
-  if (!requireNamespace("data.table", quietly = TRUE))
-    warning(paste0("Some columns are type 'ITime' but package data.table is not installed. ",
-                   "Those columns will print incorrectly. There is no need to ",
-                   "reload the data. Simply install.packages('data.table') to obtain the data.table print ",
-                   "method and print the data again."))
-}
-
-require_nanotime <- function() {
-  # called in print when they see nanotime columns are present
-  if (!requireNamespace("nanotime", quietly = TRUE))
-    warning(paste0("Some columns are type 'nanotime' but package nanotime is not installed. ",
-      "Those columns will print as strange looking floating point data. There is no need to ",
-      "reload the data. Simply install.packages('nanotime') to obtain the nanotime print ",
-      "method and print the data again."))
-}
 
 #' @export
 print.fst_table <- function(x, number_of_rows = 50, ...) {
